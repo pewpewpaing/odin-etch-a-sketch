@@ -11,3 +11,13 @@ function createGrids() {
 }
 
 createGrids();
+
+function draw(e) {
+    console.log(e.target);
+    e.target.style.backgroundColor = "red";
+}
+
+const grids = document.querySelectorAll(".grid");
+grids.forEach(grid => {
+    grid.addEventListener("mouseover", draw);
+})
