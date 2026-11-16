@@ -19,13 +19,20 @@ function createGrid(num_grids) {
 }
 
 function draw(e) {
-    e.target.style.backgroundColor = "red";
+    const red = randomRGB();
+    const green = randomRGB();
+    const blue = randomRGB();
+    e.target.style.backgroundColor = `rgb(${red} ${green} ${blue})`;
 }
 
 function clearGrid() {
     while(container.firstChild) {
         container.removeChild(container.lastChild);
     }
+}
+
+function randomRGB() {
+    return Math.floor(Math.random() * 256);
 }
 
 button.addEventListener("click", () => {
