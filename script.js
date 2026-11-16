@@ -1,23 +1,42 @@
-const NUM_GRID = 256;
-
 const container = document.querySelector(".container");
+const button = document.querySelector("button");
+const grids = document.querySelectorAll(".grid");
 
-function createGrids() {
-    for (let i = 0; i < NUM_GRID; i++) {
+const MAX_SQUARES_PER_SIDE = 100;
+const INITIAL_SQUARES_PER_SIDE = 16;
+const TOTAL_SPACE = 960;
+const BORDER_SIZE = 1;
+
+function createGrid(num_grids) {
+    for (let i = 0; i < num_grids * num_grids; i++) {
         const grid = document.createElement("div");
         grid.classList.add("grid");
+        grid.style.width = `${(TOTAL_SPACE / num_grids) - BORDER_SIZE}px`;
+        grid.style.height = `${(TOTAL_SPACE / num_grids) - BORDER_SIZE}px`;
+        grid.addEventListener("mouseover", draw);
         container.appendChild(grid);
     }
 }
 
-createGrids();
-
 function draw(e) {
-    console.log(e.target);
     e.target.style.backgroundColor = "red";
 }
 
-const grids = document.querySelectorAll(".grid");
-grids.forEach(grid => {
-    grid.addEventListener("mouseover", draw);
-})
+function clearGrid() {
+    while(container.firstChild) {
+        container.removeChild(container.lastChild);
+    }
+}
+
+button.addEventListener("click", () => {
+    let num_grids;
+    do {
+        num_grids = +prompt("Number of squares per side?");
+    }
+    while (num_grids > MAX_SQUARES_PER_SIDE);
+
+    clearGrid();
+    createGrid(num_grids);
+});
+
+createGrid(INITIAL_SQUARES_PER_SIDE);
