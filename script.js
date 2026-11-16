@@ -22,7 +22,18 @@ function draw(e) {
     const red = randomRGB();
     const green = randomRGB();
     const blue = randomRGB();
-    e.target.style.backgroundColor = `rgb(${red} ${green} ${blue})`;
+    let opacity;
+    if (!e.target.style.opacity) {
+        opacity = 0.0;
+    } else {
+        opacity = parseFloat(e.target.style.opacity);
+    }
+
+    if (opacity < 1) {
+        opacity += 0.1;
+    }
+    e.target.style.opacity = opacity;
+    e.target.style.backgroundColor = `rgba(${red}, ${green}, ${blue})`;
 }
 
 function clearGrid() {
